@@ -4,7 +4,7 @@ const express = require("express");
 const { v4: uuidv4 } = require('uuid');
 const fs = require("fs");
 // const dbJSON = require("./db/package.json");
-const dbJSON = require("./db.json");
+const dbJSON = require("./db/db.json");
 const path = require("path");
 
 // Sets up the Express App
@@ -25,11 +25,11 @@ app.use(express.json());
 
 app.get("/", function(req, res) {
   // res.send("Proof of concept of storing data");
-  res.sendFile(path.join(__dirname, "/public/index.html"));
+  res.sendFile(path.join(__dirname, "/public/assets/index.html"));
 });
 
 app.get("/notes", function(req, res) {
-  res.sendFile(path.join(__dirname, "notes.html"));
+  res.sendFile(path.join(__dirname, "/public/assets/notes.html"));
     
 });
 
@@ -68,7 +68,7 @@ app.delete('/api/notes/:id', function (req, res) {
 
 app.get("*", function(req, res) {
   // res.send("Sending you the homepage");
-  res.sendFile(path.join(__dirname, "/public/index.html"));
+  res.sendFile(path.join(__dirname, "/public/assets/index.html"));
 });
 
 // Starts the server to begin listening
