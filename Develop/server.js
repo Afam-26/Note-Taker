@@ -25,7 +25,7 @@ app.use(express.json());
 
 app.get("/", function(req, res) {
   // res.send("Proof of concept of storing data");
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
 app.get("/notes", function(req, res) {
