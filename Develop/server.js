@@ -3,8 +3,8 @@
 const express = require("express");
 const { v4: uuidv4 } = require('uuid');
 const fs = require("fs");
-const dbJSON = require("./db/package.json");
-// const dbJSON = require("./db.json");
+// const dbJSON = require("./db/package.json");
+const dbJSON = require("./db.json");
 const path = require("path");
 
 // Sets up the Express App
