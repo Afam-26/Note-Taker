@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 3000;
 // Sets up the Express app to handle data parsing
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("Develop/public"));
 
 // app.use((req, res, next) => {
 //   res.header('Access-Control-Allow-Origin', '*');
@@ -37,10 +38,8 @@ app.get("/notes", function(req, res) {
     
 });
 
-app.get("/api/notes", function(req, res) {
-  
-  res.json(dbJSON);
-  
+app.get("/api/notes", function(req, res) {  
+  res.send(dbJSON);  
 });
 
 app.post("/api/notes", function(req, res) {
