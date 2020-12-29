@@ -3,7 +3,6 @@
 const express = require("express");
 const { v4: uuidv4 } = require('uuid');
 const fs = require("fs");
-// const dbJSON = require("./db/package.json");
 const dbJSON = require("./db/db.json");
 const path = require("path");
 
@@ -25,15 +24,16 @@ app.use(express.json());
 
 app.get("/", function(req, res) {
   // res.send("Proof of concept of storing data");
-  res.sendFile(path.join(__dirname, "/public/assets/index.html"));
+  res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
 app.get("/notes", function(req, res) {
-  res.sendFile(path.join(__dirname, "/public/assets/notes.html"));
+  res.sendFile(path.join(__dirname, "/public/notes.html"));
     
 });
 
 app.get("/api/notes", function(req, res) {
+
   res.json(dbJSON);
   
 });
@@ -53,7 +53,7 @@ app.post("/api/notes", function(req, res) {
   // Saves data to file by persisting in memory variable dbJSON to db.json file.
   // This is needed because when we turn off server we loose all memory data like pbJSON variable.
   // Saving to file allows us to read previous notes (before server was shutdown) from file.
-  fs.writeFile(path.join(__dirname, "db.json"), JSON.stringify(dbJSON), (err) => {
+  fs.writeFile(path.join(__dirname, "db/db.json"), JSON.stringify(dbJSON), (err) => {
     if (err) {
       return res.json({error: "Error writing to file"});
     }
@@ -63,12 +63,12 @@ app.post("/api/notes", function(req, res) {
 });
 
 app.delete('/api/notes/:id', function (req, res) {
-  res.send('Got a DELETE request at /user')
+  res.delete(id)
 })
 
 app.get("*", function(req, res) {
   // res.send("Sending you the homepage");
-  res.sendFile(path.join(__dirname, "/public/assets/index.html"));
+  res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
 // Starts the server to begin listening
