@@ -28,8 +28,7 @@ app.use(express.static("Develop/public"));
 
 // Basic route that sends the user first to the AJAX Page
 
-app.get("/", function(req, res) {
-  // res.send("Proof of concept of storing data");
+app.get("/", function(req, res) { 
   res.sendFile(path.join(__dirname, "/public/index.html"));
 });
 
@@ -68,7 +67,15 @@ app.post("/api/notes", function(req, res) {
 });
 
 app.delete('/api/notes/:id', function (req, res) {
-  res.delete(id)
+  fs.readFile("db.json", "utf8", function(error, data){
+    let myId = req.params.id;
+    let newRes = JSON.parse(data);
+    newRes = newRes.filter
+
+    if (error) {
+      return res.json({error: "Error reading to file"});
+    }
+  })
 })
 
 app.get("*", function(req, res) {
