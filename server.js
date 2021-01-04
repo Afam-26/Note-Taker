@@ -3,7 +3,7 @@
 const express = require("express");
 const { v4: uuidv4 } = require('uuid');
 const fs = require("fs");
-const dbJSON = require("./db/db.json");
+const dbJSON = require("./Develop/db/db.json");
 const path = require("path");
 
 // Sets up the Express App
@@ -29,16 +29,16 @@ app.use(express.static("Develop/public"));
 // Basic route that sends the user first to the AJAX Page
 
 app.get("/", function(req, res) { 
-  res.sendFile(path.join(__dirname, "/public/index.html"));
+  res.sendFile(path.join(__dirname, "Develop/public/index.html"));
 });
 
 app.get("/notes", function(req, res) {
-  res.sendFile(path.join(__dirname, "/public/notes.html"));
+  res.sendFile(path.join(__dirname, "Develop/public/notes.html"));
     
 });
 
 app.get("/api/notes", function(req, res) {  
-  res.send(dbJSON);  
+  res.json(dbJSON);  
 });
 
 app.post("/api/notes", function(req, res) {
@@ -57,7 +57,7 @@ app.post("/api/notes", function(req, res) {
   // Saves data to file by persisting in memory variable dbJSON to db.json file.
   // This is needed because when we turn off server we loose all memory data like pbJSON variable.
   // Saving to file allows us to read previous notes (before server was shutdown) from file.
-  fs.writeFile(path.join(__dirname, "/db/db.json"), JSON.stringify(dbJSON), (err) => {
+  fs.writeFile(path.join(__dirname, "db/db.json"), JSON.stringify(dbJSON), (err) => {
     if (err) {
       return res.json({error: "Error writing to file"});
     }
@@ -66,17 +66,34 @@ app.post("/api/notes", function(req, res) {
   });
 });
 
-app.delete('/api/notes/:id', function (req, res) {
-  fs.readFile("db.json", "utf8", function(error, data){
-    let myId = req.params.id;
-    let newRes = JSON.parse(data);
-    newRes = newRes.filter
+// app.delete('/api/notes/:id', function (req, res) {
+//   fs.readFile("db/db.json", "utf8", function(error, data){
+//     let myId = req.params.id;
+//     let newRes = JSON.parse(data);
+//     newRes = newRes.filter
 
-    if (error) {
-      return res.json({error: "Error reading to file"});
+//     if (error) {
+//       return res.json({error: "Error reading to file"});
+//     }
+//   })
+// })
+
+app.delete("/api/notes/:id", function (req, res) {
+  let myId = req.params.id;
+  dbJSON = dbJSON.filter(function (note) {
+    if(myId !== note.id) {
+      return true;
+    }else {
+      return false;
     }
-  })
-})
+  });
+
+  fs.writeFile("db/db.json", JSON.stringify(dbJSON), function(err) {
+    if(err) throw err;
+    return res.json(true);
+  });
+ 
+});
 
 app.get("*", function(req, res) {
   //
