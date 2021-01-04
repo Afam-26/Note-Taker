@@ -16,12 +16,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("Develop/public"));
 
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   next();
-// });
-
-
 
 // Routes
 // =============================================================
@@ -78,6 +72,8 @@ app.post("/api/notes", function(req, res) {
 //   })
 // })
 
+// Delete function
+
 app.delete("/api/notes/:id", function (req, res) {
   let myId = req.params.id;
   dbJSON = dbJSON.filter(function (note) {
@@ -95,9 +91,10 @@ app.delete("/api/notes/:id", function (req, res) {
  
 });
 
+// Returns to homepage
 app.get("*", function(req, res) {
   //
-  res.sendFile(path.join(__dirname, "/public/index.html"));
+  res.sendFile(path.join(__dirname, "Develop/public/index.html"));
 });
 
 // Starts the server to begin listening
