@@ -74,7 +74,7 @@ app.post("/api/notes", function(req, res) {
 
 // Delete function
 
-app.delete("/api/notes/:id", function (req, res) {
+app.delete("/notes/:id", function (req, res) {
   let myId = req.params.id;
   dbJSON = dbJSON.filter(function (note) {
     if(myId !== note.id) {
