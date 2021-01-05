@@ -60,36 +60,20 @@ app.post("/api/notes", function(req, res) {
   });
 });
 
-// app.delete('/api/notes/:id', function (req, res) {
-//   fs.readFile("db/db.json", "utf8", function(error, data){
-//     let myId = req.params.id;
-//     let newRes = JSON.parse(data);
-//     newRes = newRes.filter
-
-//     if (error) {
-//       return res.json({error: "Error reading to file"});
-//     }
-//   })
-// })
 
 // Delete function
 
-app.delete("/notes/:id", function (req, res) {
-  let myId = req.params.id;
-  dbJSON = dbJSON.filter(function (note) {
-    if(myId !== note.id) {
-      return true;
-    }else {
-      return false;
-    }
-  });
+app.delete('/api/notes/:id', function (req, res){
+  console.log(req.params.id)
+  // console.log(dbJSON);
+  const myId = dbJSON.findIndex(item => item.id === req.params.id);
 
-  fs.writeFile("db/db.json", JSON.stringify(dbJSON), function(err) {
-    if(err) throw err;
-    return res.json(true);
-  });
- 
+  // console.log(myId);
+  dbJSON.splice(myId,1);
+  // console.log(dbJSON)
+  res.json(true)
 });
+
 
 // Returns to homepage
 app.get("*", function(req, res) {
