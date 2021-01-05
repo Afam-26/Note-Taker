@@ -15,6 +15,12 @@ Users will be able to delete notes they have written before
 
 This will assist them with organizing their thoughts and keep track of tasks they need to complete
 
+## Screen Shot
+
+![video](./link/video.gif)
+
+[Click here for the video link](https://drive.google.com/file/d/1GckCn4BvU5uG5g83vIHrXVvPkkZw2Evr/view?usp=sharing)
+
 ## Contacts Info
 
 Please reach out to me if you have any questions.
@@ -35,4 +41,6 @@ This Project is licensed by Apache license
 ## Programming-Language 
 \`\`\`
 Java-Script
+HTML
+CSS
 \`\`\`
